@@ -2,12 +2,18 @@ import "./notes-list.scss";
 
 import NotesListItem from "../notes-list-item/notes-list-item"
 
-const NotesList = () => {
+const NotesList = ({ data }) => {
+
+    const elements = data.map(item => {
+        return (
+            // <NotesListItem notes={item.notes} priority={item.priority} />
+            <NotesListItem {...item} />
+        )
+    })
+
     return (
         <ul className="app-list list-group">
-            <NotesListItem/>
-            <NotesListItem/>
-            <NotesListItem/>
+            {elements}
         </ul>
     )
 }
