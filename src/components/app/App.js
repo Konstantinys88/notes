@@ -10,6 +10,13 @@ import NotesAddForm from '../notes-add-form/notes-add-form';
 
 
 function App() {
+
+	const data = [
+		{notes: "Покормить кота" , priority: 70, increase: false}, 
+		{notes: "Погладить кота" , priority: 90, increase: true},
+		{notes: "Помыть посуду" , priority: 50, increase: false},
+	];
+
 	return (
 		<div className="app">
 			<AppInfo />
@@ -17,7 +24,7 @@ function App() {
 				<SearchPanel />
 				<AppFilter />
 			</div>
-			<NotesList />
+			<NotesList data={data}/>
 			<NotesAddForm />
 		</div>
 	);

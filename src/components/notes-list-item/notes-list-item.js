@@ -1,10 +1,16 @@
 import "./notes-list-item.scss";
 
-const NotesListItem = () => {
+const NotesListItem = ({notes, priority, increase}) => {
+
+    let classNameLi = "list-group-item d-flex justify-content-between";
+    if (increase) {
+        classNameLi += " increase"
+    }
+
     return (
-        <li className="list-group-item d-flex justify-content-between">
-            <span className="list-group-item-label">Покормить кота</span>
-            <input type="number" className="list-group-item-input" defaultValue="100" />
+        <li className={classNameLi}>
+            <span className="list-group-item-label">{notes}</span>
+            <input type="number" className="list-group-item-input" defaultValue={priority} />
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm ">
