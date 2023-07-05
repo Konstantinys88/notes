@@ -12,9 +12,10 @@ import NotesAddForm from '../notes-add-form/notes-add-form';
 function App() {
 
 	const data = [
-		{notes: "Покормить кота" , priority: 70, increase: false}, 
-		{notes: "Погладить кота" , priority: 90, increase: true},
-		{notes: "Помыть посуду" , priority: 50, increase: false},
+		{notes: "Проснутся" , priority: 70, increase: false, id: 1}, 
+		{notes: "Покормить кота" , priority: 70, increase: false, id: 2}, 
+		{notes: "Погладить кота" , priority: 90, increase: true, id: 3},
+		{notes: "Помыть посуду" , priority: 50, increase: false, id: 4},
 	];
 
 	return (
