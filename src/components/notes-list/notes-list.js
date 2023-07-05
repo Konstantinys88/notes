@@ -5,9 +5,9 @@ import NotesListItem from "../notes-list-item/notes-list-item"
 const NotesList = ({ data }) => {
 
     const elements = data.map(item => {
+        const {id, ...itemProps} = item;
         return (
-            // <NotesListItem notes={item.notes} priority={item.priority} />
-            <NotesListItem {...item} />
+            <NotesListItem key={id} {...itemProps} />
         )
     })
 
