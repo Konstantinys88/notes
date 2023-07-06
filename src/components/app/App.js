@@ -8,16 +8,15 @@ import NotesAddForm from '../notes-add-form/notes-add-form';
 
 import { Component } from 'react';
 
-
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: [
-				{notes: "Проснутся" , priority: 70, increase: false, id: 1, like: false}, 
-				{notes: "Покормить кота" , priority: 70, increase: false, id: 2, like: false}, 
-				{notes: "Погладить кота" , priority: 90, increase: true, id: 3, like: false},
-				{notes: "Помыть посуду" , priority: 50, increase: false, id: 4, like: true},
+				{ notes: "Проснутся", priority: 70, increase: false, id: 1, like: false },
+				{ notes: "Покормить кота", priority: 70, increase: false, id: 2, like: false },
+				{ notes: "Погладить кота", priority: 90, increase: true, id: 3, like: false },
+				{ notes: "Помыть посуду", priority: 50, increase: false, id: 4, like: true },
 			],
 			// term: '',
 			// filter: 'all',
@@ -34,14 +33,25 @@ class App extends Component {
 			like: false,
 		}
 		this.setState(({ data }) => {
-			const newArr = [...data, newItem]; // в старый массив записываем новый обьект
+			const newArr = [...data, newItem];
 			return {
 				data: newArr
 			}
 		});
 	}
 
-	render () {
+	deleteItem = (id) => {
+		this.setState(({ data }) => {
+
+			return {
+				data: data.filter(item => item.id !== id)
+			}
+
+
+		})
+	}
+
+	render() {
 		const { data } = this.state;
 		return (
 			<div className="app">
@@ -50,8 +60,8 @@ class App extends Component {
 					<SearchPanel />
 					<AppFilter />
 				</div>
-				<NotesList data={data}/>
-				<NotesAddForm onAddItem={this.addItem}/>
+				<NotesList data={data} onDelete={this.deleteItem} />
+				<NotesAddForm onAddItem={this.addItem} />
 			</div>
 		);
 

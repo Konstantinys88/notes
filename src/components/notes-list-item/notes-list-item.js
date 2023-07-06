@@ -12,12 +12,6 @@ class NotesListItem extends Component {
         }
     }
 
-    // onIncrease = () => {
-    //     this.setState(({increase}) => ({
-    //         increase: !increase
-    //     }))
-    // }
-
     onIncrease = () => {
         this.setState(state => ({
             increase: !state.increase
@@ -31,7 +25,7 @@ class NotesListItem extends Component {
     }
 
     render() {
-        const { notes, priority } = this.props;
+        const { notes, priority, onDelete } = this.props;
         const {increase, like} = this.state;
 
         let classNameLi = "list-group-item d-flex justify-content-between";
@@ -55,7 +49,8 @@ class NotesListItem extends Component {
                         <i className="fas fa-cookie"></i>
                     </button>
                     <button type="button"
-                        className="btn-trash btn-sm">
+                        className="btn-trash btn-sm"
+                        onClick={onDelete}>
                         <i className="fas fa-trash"></i>
                     </button>
                     <i className="fas fa-star"></i>
