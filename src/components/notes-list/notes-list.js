@@ -2,7 +2,7 @@ import "./notes-list.scss";
 
 import NotesListItem from "../notes-list-item/notes-list-item"
 
-const NotesList = ({ data, onDelete }) => {
+const NotesList = ({ data, onDelete, onToggleIncrease, onToggleLike }) => {
 
     const elements = data.map(item => {
         const {id, ...itemProps} = item;
@@ -10,7 +10,9 @@ const NotesList = ({ data, onDelete }) => {
             <NotesListItem 
             key={id} 
             {...itemProps} 
-            onDelete={() => onDelete(id)}/>
+            onDelete={() => onDelete(id)}
+            onToggleIncrease={() => onToggleIncrease(id)}
+            onToggleLike={() => onToggleLike(id)}/>
         )
     })
 

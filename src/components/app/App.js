@@ -18,8 +18,8 @@ class App extends Component {
 				{ notes: "Погладить кота", priority: 90, increase: true, id: 3, like: false },
 				{ notes: "Помыть посуду", priority: 50, increase: false, id: 4, like: true },
 			],
-			// term: '',
-			// filter: 'all',
+			term: '',
+			filter: 'all',
 		}
 		this.maxId = 5
 	}
@@ -42,25 +42,88 @@ class App extends Component {
 
 	deleteItem = (id) => {
 		this.setState(({ data }) => {
-
 			return {
 				data: data.filter(item => item.id !== id)
 			}
-
-
 		})
 	}
 
+	onToggleIncrease = (id) => {
+		this.setState(({ data }) => ({
+			data: data.map(item => {
+				if (item.id === id) {
+					return { ...item, increase: !item.increase }
+				}
+				return item;
+			})
+		}))
+	}
+
+	onToggleLike = (id) => {
+		this.setState(({ data }) => ({
+			data: data.map(item => {
+				if (item.id === id) {
+					return { ...item, like: !item.like }
+				}
+				return item;
+			})
+		}))
+	}
+
+	searchEmp = (items, term) => {
+		if (term.length === 0) {
+			return items;
+		}
+
+		return items.filter(item => {
+			return item.notes.indexOf(term) > -1;
+		})
+	}
+
+	onUpdateSearchApp = (term) => {
+		this.setState({ term: term })
+	}
+
+	filterPost = (items, filter) => {
+		switch (filter) {
+			case 'like':
+				return items.filter(item => item.like);
+			case "moreThen100":
+				return items.filter(item => item.priority > 50);
+			default:
+				return items;
+		}
+	}
+
+	onFilterSelect = (filter) => {
+		this.setState({filter});
+	}
+
+
 	render() {
-		const { data } = this.state;
+		const { data, term, filter } = this.state;
+
+		const notes = this.state.data.length;
+		const increased = this.state.data.filter(item => item.increase).length;
+		const visibleData = this.filterPost(this.searchEmp(data, term), filter);
+
+		// const visibleData = this.searchEmp(data, term);
+
 		return (
 			<div className="app">
-				<AppInfo />
+				<AppInfo
+					notes={notes}
+					increased={increased}
+				/>
 				<div className="app__search">
-					<SearchPanel />
-					<AppFilter />
+					<SearchPanel onUpdateSearchApp={this.onUpdateSearchApp} />
+					<AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
 				</div>
-				<NotesList data={data} onDelete={this.deleteItem} />
+				<NotesList
+					data={visibleData}
+					onDelete={this.deleteItem}
+					onToggleIncrease={this.onToggleIncrease}
+					onToggleLike={this.onToggleLike} />
 				<NotesAddForm onAddItem={this.addItem} />
 			</div>
 		);
